@@ -18,14 +18,14 @@ public class ParkingLot {
 
     private static ParkingLot parkingLot= null;
 
-    public synchronized ParkingLot getInstance(){
+    public static synchronized ParkingLot getInstance(){
         if(parkingLot==null){
             parkingLot= new ParkingLot("abc");
         }
         return parkingLot;
     }
 
-    public ParkingLot(String name){
+    private ParkingLot(String name){
              this.name=name;
              entrances= new ArrayList<>();
              exits= new ArrayList<>();
