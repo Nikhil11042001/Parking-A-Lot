@@ -1,0 +1,120 @@
+                                               CODE FLOW :
+Parking Lot Class -  Singleton class
+    Singleton class:
+       1.Create private static variable of same class and assigned it to null.
+       2.Always create private constructor while designing singleton class.
+       3.For making the getInstance function of thread safe always add synchronized  and make function static.
+             public static synchronized ParkingLot getInstance(){
+                     if(parkingLot==null){
+                         parkingLot= new ParkingLot("abc");
+                     }
+                     return parkingLot;
+                 }
+1. This class contains name of parking lot,list of entrances,exit, Display board, freeParkingSpots at each parking spot,
+occupied parking spot
+2.Created constructor for initializing variables.
+             private ParkingLot(String name){
+                       this.name=name;
+                       entrances= new ArrayList<>();
+                       exits= new ArrayList<>();
+                       displayBoard= DisplayBoard.getInstance();
+                       freeParkingSpots = new HashMap<>();
+                       occupiedParkingSpots= new HashMap<>();
+
+                       freeParkingSpots.put(ParkingSpotEnum.MINI, new ArrayList<>());
+                       freeParkingSpots.put(ParkingSpotEnum.COMPACT, new ArrayList<>());
+                       freeParkingSpots.put(ParkingSpotEnum.LARGE, new ArrayList<>());
+
+                       occupiedParkingSpots.put(ParkingSpotEnum.MINI, new ArrayList<>());
+                       occupiedParkingSpots.put(ParkingSpotEnum.COMPACT, new ArrayList<>());
+                       occupiedParkingSpots.put(ParkingSpotEnum.LARGE, new ArrayList<>());
+                 }
+ENTRANCE PANEL AND EXIT PANEL
+1. Both classes contains name of the panel variable and define paramatrized constructor with paramater as name.
+
+DESIGNING A PARKING SPOT
+
+ PARKING SPOT
+
+1. Parking Spot is an abstract class
+      Abstract class - 1. Contains abstarct and non abstarct methods.
+                       2. Not allowed to create object
+                       3. Constructor of the abstract class is private as we cannot create object of this class
+                          It is only for initializing variables of class.
+                       4. A constructor in an abstract class can be public, protected, or even private, based on your requirements.
+                       5. Protected is the most common choice because it fits the purpose of abstract classes:
+                          allowing controlled inheritance but preventing direct instantiation.
+2. Parking Spot contains variable - spot id, isFree flag, floor number at which parking spot is there, charge of parkign spot i.e. amount.
+3. Create parking spot protected in Parking spot.
+4. For spot id we will define one AtomicInteger x and use x.incrementAndGet() function for initializing id.
+5. It contains  abstract method.  public abstract int cost(int parkingHours);
+
+COMPACT, LARGE, MINI
+1. These classes and extending parking spot class or we can say they are derived classes of Parking Spot.
+2. Create paramatrized constrctor and pass floow number as parameter and initialize constants charges.
+3. Implemet cost method with ogic parking hours * amount.
+
+FOR ADDING EXTRA FEATURES AT EACH PARKING SPOT WE WILL USE DECORATOR DESIGN PATTERN.
+
+Design a Spot decorator.
+1. This is an abstract class.
+2. It has both is-a and Has-a relationship means it is extending parking spot class and contains object of parkign spot class.
+3. Create paramatrized cconstructor for initializing parking spot reference.
+
+ELECTRIC AND WASH CLASS
+ 1.it is extending spot decorator class .
+ 2.it is initializing parkign lot object.
+ 3.implement cost method as parkingSpot.cost(parkingHours)+x;
+
+Vehicle class -:
+
+1. Contains variables vehicle Id and parkingSpotEnum.
+2. CAR, TRUCK, MOTORCYCLE IMPLEMNTS VEHICLE CLASS.JUST CALL CONSTRUCTOR AND PROVIDE ENUM type.
+
+PARKING EVENT CLASS
+1. Contains event type i.e. its entry or exit and parking spot enum i.e.  it is compact,mini or large.
+
+PARKING TICKET CLASS
+1. It contains ticket id, type of vehicle , parking spot which will be assigned,current timestamp.
+2. define one getParking hours method which will return 2 means for two hours this ticket is charged.
+
+ENUMS PARKING EVENT TYPE
+
+1. It contains ENTRY and EXIT.
+
+ENUM PARKING SPOT ENUM
+
+1.It contains class referranced enum .
+       COMPACT(Compact.class),
+       MINI(Mini.class),
+       LARGE(Large.class);
+       private Class parkingSpot;
+       ParkingSpotEnum(Class parkingSpot){
+           this.parkingSpot= parkingSpot;
+       }
+       public Class getParkingSpot(){
+           return parkingSpot;
+       }
+EXCEPTION CLASSES
+
+INVALID TICKET EXCEPTION AND SPOT NOT FOUND EXCEPTION CLASS.
+
+1. InvalidTicketException and SpotNotFOundException extends Exceptions class.
+2.  Create construtor and provide message while calling parent constrcctor.
+           public InvalidTicketException(String message){
+                         super(message);
+            }
+LOGIC BUILDING
+
+INTERFACES:
+  1. DisplayService - void update(ParkingSpotEnum parkingSpotEnum, int i);
+  2. Observer - void update(ParkingEvent event);
+  3. ParkingService -  ParkingTicket entry(Vehicle vehicle);
+                       int exit(ParkingTicket parkingTicket, Vehicle vehicle) throws InvalidTicketException;
+  4. ParkingSPotService -  ParkingSpot create(ParkingSpotEnum parkingSpotEnum, Integer floor);
+
+
+
+
+
+
