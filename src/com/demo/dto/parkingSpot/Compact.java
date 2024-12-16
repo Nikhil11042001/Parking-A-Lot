@@ -9,4 +9,11 @@ public class Compact extends ParkingSpot{
     public int cost(int parkingHours) {
         return parkingHours* amount;
     }
+
+    @Override
+    public String toString() {
+        return "Compact{" +
+                "amount=" + amount +
+                '}';
+    }
 }

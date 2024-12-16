@@ -50,4 +50,14 @@ public abstract class ParkingSpot {
         this.amount = amount;
     }
     public abstract int cost(int parkingHours);
+
+    @Override
+    public String toString() {
+        return "ParkingSpot{" +
+                "id=" + id +
+                ", isFree=" + isFree +
+                ", floor=" + floor +
+                ", amount=" + amount +
+                '}';
+    }
 }

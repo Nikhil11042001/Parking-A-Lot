@@ -21,6 +21,7 @@ public class Main {
         ParkingSpotService parkingSpotService= new ParkingSpotServiceImpl();
 
         ParkingSpot a1= parkingSpotService.create(ParkingSpotEnum.COMPACT,Integer.valueOf(0));
+        System.out.println(a1.toString());
         ParkingSpot a2= parkingSpotService.create(ParkingSpotEnum.COMPACT, 0);
 
         ParkingSpot b1= parkingSpotService.create(ParkingSpotEnum.LARGE, 0);

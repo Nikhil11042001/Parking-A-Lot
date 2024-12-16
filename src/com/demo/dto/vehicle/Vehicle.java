@@ -4,7 +4,7 @@ import com.demo.enums.ParkingSpotEnum;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Vehicle {
+public abstract class Vehicle {
     private static final AtomicInteger x = new AtomicInteger(0);
     private int id;
     private ParkingSpotEnum parkingSpotEnum;
